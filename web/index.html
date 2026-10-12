@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Power Grid | Bengaluru Storm Recovery Simulator</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar"><div class="brand"><div class="brand-mark">PG</div><div><div class="eyebrow">DATA STRUCTURES MICRO-PROJECT</div><h1>Power Grid <span>Restoration</span></h1></div></div><div class="live"><i></i> C++ ENGINE CONNECTED</div></header>
+<main>
+<section class="hero"><div><p class="eyebrow">EMERGENCY RESPONSE DASHBOARD</p><h2>Storm recovery control room</h2><p class="muted">Simulate line failures, restore electricity, and compare repair strategies.</p></div><div class="storm-tag"><span>⛈</span> STORM SCENARIO · 7 LINES</div></section>
+<section class="stats">
+<div class="stat"><span>Locations powered</span><strong id="poweredCount">2 / 7</strong><small>Including substations</small></div>
+<div class="stat"><span>Critical services offline</span><strong id="criticalCount">3</strong><small>Hospital · Water · Telecom</small></div>
+<div class="stat"><span>Lines damaged</span><strong id="damagedCount">7</strong><small>Repair effort units</small></div>
+<div class="stat"><span>Repairs completed</span><strong id="repairsCount">0</strong><small>Since current scenario began</small></div>
+</section>
+<section class="panel bengaluru-map-panel">
+<div class="panel-head"><div><p class="eyebrow">REAL-WORLD BASEMAP</p><h3>Bengaluru infrastructure map</h3><p class="muted map-subtitle">Public landmarks with a simulated network overlay. Click a marker for details.</p></div><span class="tag">OpenStreetMap</span></div>
+<div id="bengaluruMap" aria-label="Map of Bengaluru hospitals, water tanks and telecom infrastructure"></div>
+<div class="map-disclaimer">Important: markers point to named public places or approximate model nodes. Colored connections are fictional simulation links, not actual BESCOM power lines. Map tiles require an internet connection. Map data © OpenStreetMap contributors.</div>
+</section>
+<section class="layout">
+<div class="panel map-panel">
+<div class="panel-head"><div><p class="eyebrow">LIVE NETWORK</p><h3>Grid map</h3></div><div class="legend"><span><i class="dot powered"></i> Powered</span><span><i class="dot off"></i> No power</span><span><i class="line-key"></i> Damaged line</span></div></div>
+<div class="grid-wrap" id="gridWrap"><svg id="grid" viewBox="0 0 760 390" role="img" aria-label="Interactive power grid diagram"></svg><div class="storm-overlay" id="stormOverlay"><div class="cloud">⛈</div><div class="storm-label">STORM DAMAGE DETECTED</div></div></div>
+<div class="map-foot"><span id="statusText">System initialized. Waiting for action.</span><button class="btn secondary small" id="resetBtn">Reset scenario</button></div>
+</div>
+<aside class="panel controls">
+<p class="eyebrow">CONTROL PANEL</p><h3>Restoration controls</h3>
+<button class="btn primary" id="stormBtn">⛈ Simulate storm damage</button>
+<button class="btn primary" id="stepBtn">Repair next priority line</button>
+<div class="auto-row"><div><strong>Automatic restoration</strong><small>Repair one line every 1.8 seconds</small></div><label class="switch"><input type="checkbox" id="autoToggle"><span></span></label></div>
+<div class="field"><label for="edgeSelect">Select a power line</label><select id="edgeSelect"></select></div>
+<div class="button-row"><button class="btn secondary" id="repairBtn">Repair selected</button><button class="btn danger" id="damageBtn">Damage selected</button></div>
+<div class="divider"></div><p class="eyebrow">RESTORATION ORDER</p><ol class="schedule" id="schedule"></ol>
+</aside>
+</section>
+<section class="lower">
+<div class="panel"><div class="panel-head"><div><p class="eyebrow">STRATEGY ANALYSIS</p><h3>Repair-cost comparison</h3></div><span class="tag">Effort units</span></div>
+<div class="cost-row"><div class="cost-info"><span class="cost-dot blue"></span><div><strong>Priority restoration</strong><small>Greedy gain / effort scheduler</small></div></div><strong id="priorityCost">22</strong></div><div class="bar-bg"><div id="priorityBar" class="bar blue-bg"></div></div>
+<div class="cost-row"><div class="cost-info"><span class="cost-dot violet"></span><div><strong>Minimum network</strong><small>Kruskal's algorithm (connect all locations)</small></div></div><strong id="mstCost">23</strong></div><div class="bar-bg"><div id="mstBar" class="bar violet-bg"></div></div>
+<p class="note">These totals are based on the current network state. Priority restoration focuses on restoring service; Kruskal aims to connect the whole network. They solve different goals, so compare the objective as well as the total.</p>
+</div>
+<div class="panel"><div class="panel-head"><div><p class="eyebrow">EVENT HISTORY</p><h3>Operations log</h3></div><button class="text-btn" id="clearLog">Clear</button></div><ul class="event-log" id="eventLog"><li><span class="event-dot"></span><div><strong>Simulation ready</strong><small>C++ graph and algorithms loaded.</small></div><time>NOW</time></li></ul></div>
+</section>
+<section class="panel location-panel"><div class="panel-head"><div><p class="eyebrow">LOCATION MONITOR</p><h3>Electricity status by location</h3></div><span class="tag" id="criticalTag">3 critical services</span></div><div class="location-list" id="locationList"></div></section>
+<footer>Educational simulation only · Costs are abstract repair-effort units, not real-world estimates. This is not a live utility-grid controller.</footer>
+</main><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script><script src="app.js"></script></body></html>
