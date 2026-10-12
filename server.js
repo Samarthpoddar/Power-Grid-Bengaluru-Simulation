@@ -36,6 +36,7 @@ function command(text) {
 const types = { '.html':'text/html; charset=utf-8', '.css':'text/css; charset=utf-8', '.js':'text/javascript; charset=utf-8' };
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
+  if (url.pathname === '/favicon.ico') { res.writeHead(204); res.end(); return; }
   if (url.pathname.startsWith('/api/')) {
     try {
       let result;
