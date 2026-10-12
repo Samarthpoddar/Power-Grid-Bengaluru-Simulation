@@ -9,6 +9,8 @@ This adds a browser dashboard and Bengaluru OpenStreetMap view to the team's ori
 - A C++17 compiler available as `g++` in PATH (for example, MinGW-w64)
 - Node.js LTS available as `node` in PATH
 
+- live here : https://samarthpoddar.github.io/Power-Grid-Bengaluru-Simulation/
+
 ## Run it
 
 1. Extract this folder somewhere easy to find, such as `Desktop\Power Grid v1 - Browser Simulation`.
